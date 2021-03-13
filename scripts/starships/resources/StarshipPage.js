@@ -19,6 +19,18 @@ class StarshipPage {
   }
 
   get starships() {
-    return this._starships;
+    return [...this._starships];
+  }
+
+  set starships(starships) {
+    this._starships = starships;
+  }
+
+  findById(id) {
+    return this._starships.find(starship => starship.id === id);
+  }
+
+  findIndexById(id) {
+    return this._starships.findIndex(starship => starship.id === id);
   }
 }

@@ -1,0 +1,38 @@
+.starships-table {
+  border-collapse: collapse;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  width: 100%;
+  max-width: 1600px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  margin-top: 1rem;
+}
+
+.starships-table thead tr {
+  background-color: #0f1923;
+  color: #ff4655;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.starships-table th,
+.starships-table td {
+  padding: 12px 15px;
+}
+
+.starships-table tbody td {
+  color: #0f1923;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.starships-table tbody tr {
+  background-color: #bdd1e6;
+}
+
+.starships-table tbody tr:last-of-type {
+  border-bottom: 2px solid #0f1923;
+}

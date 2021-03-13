@@ -1,0 +1,51 @@
+.action-button {
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
+  border-radius: 0.25rem;
+}
+
+.action-button:hover:not(.js-disabled-button) {
+  filter: brightness(0.8);
+}
+
+
+.cancel-button,
+.delete-button {
+  color: #ffffff;
+  background-color: #ff4655;
+}
+
+.update-button,
+.edit-button {
+  background-color: #0f1923;
+  color: #ff4655;
+}
+
+.js-disabled-button {
+  cursor: not-allowed;
+  color: #ddd;
+}
+
+.action-buttons {
+  margin-top: 1rem;
+  width: 100%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-action-buttons {
+  margin-top: 1rem;
+  width: 100%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button + button {
+  margin-left: 0.25rem;
+}

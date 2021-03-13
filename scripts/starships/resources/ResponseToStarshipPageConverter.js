@@ -40,7 +40,7 @@ class ResponseToStarshipPageConverter {
         name,
         model,
         manufacturer,
-        passengers,
+        passengers: passengers.replace(',', '.').toUpperCase(),
         shipClass,
       });
     });

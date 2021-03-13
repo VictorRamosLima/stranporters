@@ -1,17 +1,17 @@
 class IndexView {
   static render(page) {
     const tableBody = document.querySelector('#js-table-body');
-    const tableFooter = document.querySelector('#js-table-footer');
+    const actionButtons = document.querySelector('#js-action-buttons');
 
     const tableRows = page.starships.map(
       starship => IndexView._generateTableRow(starship)
     );
 
     tableBody.innerHTML = '';
-    tableFooter.innerHTML = '';
+    actionButtons.innerHTML = '';
 
     tableRows.forEach(tableRow => tableBody.appendChild(tableRow));
-    tableFooter.appendChild(IndexView._generateTableFooter(page));
+    actionButtons.appendChild(IndexView._generateActionButtons(page));
   }
 
   static _generateTableRow(starship) {
@@ -34,31 +34,35 @@ class IndexView {
       <td class="manufacturer">${starship.manufacturer}</td>
       <td class="ship">${starship.shipClass}</td>
       <td>
-        <button>Editar</button>
+        <button class="action-button edit-button js-open-edit-button">Editar</button>
       </td>
       <td>
-        <button class="js-delete-button">Excluir</button>
+        <button class="action-button delete-button js-delete-button">Excluir</button>
       </td>
     `;
 
     return tableData;
   }
 
-  static _generateTableFooter(page) {
-    const tableRow = document.createElement('tr');
-    tableRow.setAttribute('colspan', '8');
+  static _generateActionButtons(page) {
+    const div = document.createElement('div');
+    div.classList.add('action-buttons');
 
-    tableRow.innerHTML = `
-      <tr colspan="8">
-        <button ${(page.previous <= 0) ? 'disabled' : ''}">
-          Anterior
-        </button>
-        <button ${(page.next <= 0) ? 'disabled' : ''}">
-          Próximo
-        </button>
-      </tr>
+    div.innerHTML = `
+      <button class="action-button js-previous-button ${(page.previous <= 0) ? 'js-disabled-button' : ''}"
+        ${(page.previous <= 0) ? '' : `data-page-number="${page.previous}"`}
+      >
+        Anterior
+      </button>
+
+      <button
+        class="action-button js-next-button ${(page.next <= 0) ? 'js-disabled-button' : ''}""
+        ${(page.next <= 0) ? '' : `data-page-number="${page.next}"`}
+      >
+        Próximo
+      </button>
     `;
 
-    return tableRow;
+    return div;
   }
 }
