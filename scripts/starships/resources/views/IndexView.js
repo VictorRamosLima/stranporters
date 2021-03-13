@@ -1,26 +1,23 @@
 class IndexView {
-  constructor(controller) {
-    this._controller = controller;
-  }
-
-  render(response) {
-    this._response = response;
+  static render(page) {
     const tableBody = document.querySelector('#js-table-body');
     const tableFooter = document.querySelector('#js-table-footer');
 
-    const tableRows = this._response.starships.map(
-      starship => this._generateTableRow(starship)
+    const tableRows = page.starships.map(
+      starship => IndexView._generateTableRow(starship)
     );
 
     tableBody.innerHTML = '';
-    tableRows.forEach(tableRow => tableBody.appendChild(tableRow));
+    tableFooter.innerHTML = '';
 
-    tableFooter.appendChild(this._generateTableFooter());
+    tableRows.forEach(tableRow => tableBody.appendChild(tableRow));
+    tableFooter.appendChild(IndexView._generateTableFooter(page));
   }
 
-  _generateTableRow(starship) {
+  static _generateTableRow(starship) {
     const tableRow = document.createElement('tr');
-    tableRow.innerHTML = this._generateTableData(starship);
+    tableRow.innerHTML = IndexView._generateTableData(starship);
+    tableRow.setAttribute('id', `starship-${starship.id}`);
 
     if (starship.isNotVisible) {
       tableRow.classList.add('js-not-active');
@@ -29,9 +26,8 @@ class IndexView {
     return tableRow;
   }
 
-  _generateTableData(starship) {
+  static _generateTableData(starship) {
     const tableData = `
-      <td class="id">${starship.id}</td>
       <td class="name">${starship.name}</td>
       <td class="model">${starship.model}</td>
       <td class="passengers">${starship.passengers}</td>
@@ -48,16 +44,16 @@ class IndexView {
     return tableData;
   }
 
-  _generateTableFooter() {
+  static _generateTableFooter(page) {
     const tableRow = document.createElement('tr');
     tableRow.setAttribute('colspan', '8');
 
     tableRow.innerHTML = `
       <tr colspan="8">
-        <button ${(this._response.previous <= 0) ? 'disabled' : ''}">
+        <button ${(page.previous <= 0) ? 'disabled' : ''}">
           Anterior
         </button>
-        <button ${(this._response.next <= 0) ? 'disabled' : ''}">
+        <button ${(page.next <= 0) ? 'disabled' : ''}">
           Próximo
         </button>
       </tr>

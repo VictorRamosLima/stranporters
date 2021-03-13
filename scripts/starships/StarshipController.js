@@ -1,43 +1,50 @@
 class StarshipController {
-  constructor(service = new StarshipService()) {
-    this._service = service;
-    this._view = new IndexView(this);
+  constructor(
+    service = new StarshipService(),
+    context = new StarshipContext()
+  ) {
+    this.service = service;
+    this.context = context;
   }
 
-  async index(page = 1) {
-    const starshipResponse = await this._service.fetch(page);
+  async index(pageNumber = 1) {
+    const page = await this.service.fetch(pageNumber <= 0 ? 1 : pageNumber);
 
-    this._starshipResponse = starshipResponse;
+    IndexView.render(page);
 
-    this._view.render(this._starshipResponse);
+    this.context.page = page;
   }
 
-  update({ id, params, starshipResponse }) {
-    const index = starshipResponse.starships.findIndex(starship => starship === id);
-    const starship = starshipResponse.starships[index];
+  update({ id, params }) {
+    const page = this.context.page;
+
+    const index = page.starships.findIndex(starship => starship === id);
+    const starship = page.starships[index];
   
     starship.name ??= params.name;
     starship.model ??= params.model;
     starship.manufacturer ??= params.manufacturer;
     starship.passengers ??= params.passengers;
-    starship.class ??= params.class;
+    starship.shipClass ??= params.shipClass;
 
     starshipResponse.starships[index] = starship;
 
-    this._view.render(this._starshipResponse);
+    IndexView.render(page);
+
+    this.context.page = page;
   }
 
   delete(id) {
-    const starship = this._starshipResponse.starships.find(
+    const page = this.context.page;
+
+    const starship = page.starships.find(
       starship => starship.id === id
     );
 
     starship.visibility = false;
 
-    this._view.render(this._starshipResponse);
-  }
+    IndexView.render(page);
 
-  get response() {
-    return this._starshipResponse;
+    this.context.page = page;
   }
 }

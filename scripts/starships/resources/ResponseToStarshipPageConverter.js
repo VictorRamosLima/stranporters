@@ -1,4 +1,4 @@
-class ResponseToStarshipResponseConverter {
+class ResponseToStarshipPageConverter {
   convert(response) {
     const { count, next, previous, results } = response;
   
@@ -8,7 +8,7 @@ class ResponseToStarshipResponseConverter {
 
     const starships = this._convertResults(multiplier, results);
 
-    return new StarshipResponse({
+    return new StarshipPage({
       count,
       next: nextPage,
       previous: previousPage,

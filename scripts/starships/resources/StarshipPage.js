@@ -1,4 +1,4 @@
-class StarshipResponse {
+class StarshipPage {
   constructor({ count, next, previous, starships }) {
     this._count = count;
     this._next = next;

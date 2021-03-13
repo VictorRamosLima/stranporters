@@ -1,7 +1,7 @@
 class StarshipService {
   constructor(
     gateway = new StarshipGateway(),
-    converter = new ResponseToStarshipResponseConverter()
+    converter = new ResponseToStarshipPageConverter()
   ) {
     this._gateway = gateway;
     this._converter = converter;
